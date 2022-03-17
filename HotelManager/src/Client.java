@@ -9,9 +9,11 @@ public class Client {
     private Reservation reservation;
     private Sejour sejour;
 
-    public Client(String n) {
+    public Client(String nom) {
+        if (nom == null)
+            throw new IllegalArgumentException("Le nom du client ne peut pas être nuls");
         id = idCnt++;
-        nom = n;
+        this.nom = nom;
     }
 
     public void ajouterReservation(Date debut, Date fin, Chambre chambre) {

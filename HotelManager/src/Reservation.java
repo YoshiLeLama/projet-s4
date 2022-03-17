@@ -11,6 +11,9 @@ public class Reservation {
     private Chambre chambre;
 
     public Reservation(Date debut, Date fin, Client client, Chambre chambre) {
+        if (debut == null || fin == null || client == null || chambre == null)
+            throw new IllegalArgumentException("les arguments du constructeur de Reservation ne peuvent pas être nuls");
+
         id = idCnt++;
         this.debut = debut;
         this.fin = fin;

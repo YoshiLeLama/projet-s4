@@ -11,6 +11,8 @@ public class Sejour {
     private Chambre chambre;
 
     public Sejour(Date debut, Date fin, Client client, Chambre chambre) {
+        if (debut == null || fin == null || client == null || chambre == null)
+            throw new IllegalArgumentException("Les arguments du constructeur de Sejour ne peuvent pas être nuls");
         this.debut = debut;
         this.fin = fin;
         this.client = client;

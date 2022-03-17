@@ -18,6 +18,9 @@ public abstract class Chambre {
     }
 
     public boolean disponible(Date debut, Date fin) {
+        if (debut == null || fin == null)
+            throw new IllegalArgumentException("Les arguments de Chambre.disponible ne peuvent pas être nuls");
+
         for (Reservation r : reservations) {
             if ((fin.after(r.getDebut()) && fin.before(r.getFin())) || (debut.after(r.getDebut()) && debut.before(r.getFin())))
                 return false;
@@ -35,7 +38,13 @@ public abstract class Chambre {
     }
 
     public void ajouterReservation(Reservation reservation) {
+        if (reservation == null) return;
         reservations.add(reservation);
+    }
+
+    public void ajouterSejour(Sejour sejour) {
+        if (sejour == null) return;
+        sejours.add(sejour);
     }
 
     public double getPrix() {
