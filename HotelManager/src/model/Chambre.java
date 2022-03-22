@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +21,7 @@ public abstract class Chambre {
 
     public boolean disponible(Date debut, Date fin) {
         if (debut == null || fin == null)
-            throw new IllegalArgumentException("Les arguments de Chambre.disponible ne peuvent pas être nuls");
+            throw new IllegalArgumentException("Les arguments de model.Chambre.disponible ne peuvent pas être nuls");
 
         for (Reservation r : reservations) {
             if ((fin.after(r.getDebut()) && fin.before(r.getFin())) || (debut.after(r.getDebut()) && debut.before(r.getFin())))

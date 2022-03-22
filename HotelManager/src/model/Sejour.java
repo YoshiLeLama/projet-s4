@@ -1,3 +1,5 @@
+package model;
+
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Date;
@@ -12,7 +14,7 @@ public class Sejour {
 
     public Sejour(Date debut, Date fin, Client client, Chambre chambre) {
         if (debut == null || fin == null || client == null || chambre == null)
-            throw new IllegalArgumentException("Les arguments du constructeur de Sejour ne peuvent pas être nuls");
+            throw new IllegalArgumentException("Les arguments du constructeur de model.Sejour ne peuvent pas être nuls");
         this.debut = debut;
         this.fin = fin;
         this.client = client;

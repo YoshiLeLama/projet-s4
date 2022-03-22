@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Date;
 
 public class Client {
@@ -30,6 +32,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client :\n id : " + id + "\n nom : " + nom + "\n reservation : " + reservation + "\n séjour : " + sejour + "\n";
+        return "model.Client :\n id : " + id + "\n nom : " + nom + "\n reservation : " + reservation + "\n séjour : " + sejour + "\n";
     }
 }

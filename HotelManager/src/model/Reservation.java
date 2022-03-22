@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Date;
 
 public class Reservation {
@@ -12,7 +14,7 @@ public class Reservation {
 
     public Reservation(Date debut, Date fin, Client client, Chambre chambre) {
         if (debut == null || fin == null || client == null || chambre == null)
-            throw new IllegalArgumentException("les arguments du constructeur de Reservation ne peuvent pas être nuls");
+            throw new IllegalArgumentException("les arguments du constructeur de model.Reservation ne peuvent pas être nuls");
 
         id = idCnt++;
         this.debut = debut;
