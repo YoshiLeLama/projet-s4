@@ -1,27 +1,28 @@
 package view;
 
 import controller.HotelController;
-import model.Hotel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class HotelView extends JFrame {
-    public ChambreView chambreView;
-    public ClientView clientView;
-    public ReservationView reservationView;
+    public ChambreListView chambreView;
+    public ClientListView clientView;
+    public ReservationListView reservationView;
 
     public HotelView() {
         super("Hotel Manager");
 
-        Hotel hotel = new Hotel();
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        HotelController controller = new HotelController(hotel, this);
-
-        add(new ChambreView());
+        add(new ChambreListView());
 
         setMinimumSize(new Dimension(400, 400));
         pack();
         setVisible(true);
+    }
+
+    public void setupEvents(HotelController controller) {
+
     }
 }
