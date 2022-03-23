@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Chambre {
+    private Hotel hotel;
+
     private int numero;
     private int etage;
     private double prix;
@@ -11,10 +13,11 @@ public abstract class Chambre {
     private ArrayList<Reservation> reservations;
     private ArrayList<Sejour> sejours;
 
-    public Chambre(int num, int e, double p) {
-        numero = num;
-        etage = e;
-        prix = p;
+    public Chambre(Hotel hotel, int numero, int etage, double prix) {
+        this.hotel = hotel;
+        this.numero = numero;
+        this.etage = etage;
+        this.prix = prix;
         reservations = new ArrayList<>();
         sejours = new ArrayList<>();
     }
@@ -33,6 +36,10 @@ public abstract class Chambre {
 
     public int getNumero() {
         return numero;
+    }
+
+    public int getEtage() {
+        return etage;
     }
 
     public void setPrix(double p) {
