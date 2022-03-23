@@ -10,6 +10,10 @@ public class Hotel {
         chambres = new ArrayList<>();
     }
 
+    public ArrayList<Chambre> getChambres() {
+        return chambres;
+    }
+
     public void ajouterChambre(Chambre chambre) {
         if (chambre != null)
             chambres.add(chambre);
