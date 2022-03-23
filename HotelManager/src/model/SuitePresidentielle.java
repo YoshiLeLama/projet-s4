@@ -1,7 +1,7 @@
 package model;
 
 public class SuitePresidentielle extends Chambre{
-    public SuitePresidentielle(int num, int e, double p) {
-        super(num, e, p);
+    public SuitePresidentielle(Hotel hotel, int numero, int etage, double prix) {
+        super(hotel, numero, etage, prix);
     }
 }
