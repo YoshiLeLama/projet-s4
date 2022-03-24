@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class ChambreListView extends JPanel {
     private final JButton addChambreButton;
+    private final JButton modifyChambreButton;
     private final JButton deleteChambreButton;
     private final JList<Object> chambresList;
 
@@ -30,9 +31,17 @@ public class ChambreListView extends JPanel {
         BorderLayout contentLayout = new BorderLayout();
         setLayout(contentLayout);
 
+        JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
+
+        modifyChambreButton = new JButton("Modifier la chambre");
+        modifyChambreButton.setEnabled(false);
+        bottomPanel.add(modifyChambreButton);
+
         deleteChambreButton = new JButton("Supprimer la chambre");
         deleteChambreButton.setEnabled(false);
-        add(deleteChambreButton, BorderLayout.SOUTH);
+        bottomPanel.add(deleteChambreButton);
+
+        add(bottomPanel, BorderLayout.SOUTH);
 
         chambresList = new JList<>();
         chambresList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -40,7 +49,9 @@ public class ChambreListView extends JPanel {
         chambresList.setVisibleRowCount(-1);
 
         chambresList.addListSelectionListener(e -> {
-            deleteChambreButton.setEnabled(!chambresList.isSelectionEmpty());
+            boolean filled = !chambresList.isSelectionEmpty();
+            modifyChambreButton.setEnabled(filled);
+            deleteChambreButton.setEnabled(filled);
         });
 
         JScrollPane chambreListScroll = new JScrollPane(chambresList);
@@ -124,6 +135,21 @@ public class ChambreListView extends JPanel {
             numeroTextField.setText("");
             etageTextField.setText("");
             prixTextField.setText("");
+        });
+
+        modifyChambreButton.addActionListener(e -> {
+            if (!chambresList.isSelectionEmpty()) {
+                String newPrix = JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), "Nouveau prix de la chambre");
+                double prix;
+                try {
+                    prix = Double.parseDouble(newPrix);
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Le prix entré est invalide");
+                    return;
+                }
+
+                controller.modifyChambre(chambresList.getSelectedIndex(), prix);
+            }
         });
 
         deleteChambreButton.addActionListener(e -> {

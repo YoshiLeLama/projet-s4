@@ -34,6 +34,11 @@ public class ChambreListController {
         return true;
     }
 
+    public void modifyChambre(int index, double newPrix) {
+        model.getChambres().get(index).setPrix(newPrix);
+        view.modelUpdated(model.getChambres());
+    }
+
     public void deleteChambre(int index) {
         model.getChambres().remove(index);
 
