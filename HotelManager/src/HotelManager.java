@@ -17,10 +17,10 @@ public class HotelManager {
         hotel.ajouterChambre(new ChambreDouble(hotel, 2, 1, 60));
         ChambreListView view = new ChambreListView();
 
-        ChambreListController controller = new ChambreListController(hotel.getChambres(), view);
+        ChambreListController controller = new ChambreListController(hotel, view);
 
         JFrame frame = new JFrame("Hotel");
-        frame.setMinimumSize(new Dimension(400, 400));
+        frame.setMinimumSize(new Dimension(500, 500));
         frame.setContentPane(view);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
