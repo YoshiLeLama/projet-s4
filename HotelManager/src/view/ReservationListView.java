@@ -54,6 +54,8 @@ public class ReservationListView extends JPanel {
         addReservationButton = new JButton("Ajouter");
         addReservationPanel.add(addReservationButton);
 
+        addReservationPanel.setPreferredSize(new Dimension(1000, 60));
+
         add(addReservationPanel, BorderLayout.NORTH);
 
         JPanel bottomPanel = new JPanel(new FlowLayout());
