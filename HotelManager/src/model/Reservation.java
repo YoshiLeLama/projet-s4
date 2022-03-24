@@ -1,5 +1,7 @@
 package model;
 
+import view.ReservationListView;
+
 import java.util.Date;
 
 public class Reservation {
@@ -38,5 +40,13 @@ public class Reservation {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return id + " | chambre : " + chambre.getNumero() +
+                " | client : " + client.getId() +
+                " | dates : " + ReservationListView.dateFormat.format(debut) +
+                " -> " + ReservationListView.dateFormat.format(fin);
     }
 }

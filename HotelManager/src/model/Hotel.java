@@ -2,14 +2,19 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class Hotel {
     private ArrayList<Chambre> chambres;
     private ArrayList<Client> clients;
 
+    private ArrayList<Consumer<Void>> onReservationUpdateCallbacks;
+
     public Hotel() {
         chambres = new ArrayList<>();
         clients = new ArrayList<>();
+        onReservationUpdateCallbacks = new ArrayList<>();
     }
 
     public ArrayList<Chambre> getChambres() {
@@ -65,5 +70,24 @@ public class Hotel {
 
     public ArrayList<Client> getClients() {
         return clients;
+    }
+
+    public ArrayList<Reservation> getReservations() {
+        ArrayList<Reservation> reservations = new ArrayList<>();
+
+        for (Client client : clients) {
+            reservations.addAll(client.getReservations());
+        }
+
+        return reservations;
+    }
+
+    public void addOnReservationUpdateCallback(Consumer<Void> function) {
+        onReservationUpdateCallbacks.add(function);
+    }
+
+    public void onReservationUpdate() {
+        for (Consumer<Void> function : onReservationUpdateCallbacks)
+            function.accept(null);
     }
 }

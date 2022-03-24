@@ -35,9 +35,11 @@ public class ClientListView extends JPanel {
         JPanel bottomPanel = new JPanel(new FlowLayout());
 
         modifyClientButton = new JButton("Modifier le client");
+        modifyClientButton.setEnabled(false);
         bottomPanel.add(modifyClientButton);
 
         deleteClientButton = new JButton("Supprimer le client");
+        deleteClientButton.setEnabled(false);
         bottomPanel.add(deleteClientButton);
 
         add(bottomPanel, BorderLayout.SOUTH);

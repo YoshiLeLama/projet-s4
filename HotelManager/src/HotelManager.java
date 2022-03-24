@@ -1,8 +1,10 @@
 import controller.ChambreListController;
 import controller.ClientListController;
+import controller.ReservationListController;
 import model.*;
 import view.ChambreListView;
 import view.ClientListView;
+import view.ReservationListView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,12 +27,17 @@ public class HotelManager {
 
         ClientListController clientListController = new ClientListController(hotel, clientView);
 
+        ReservationListView reservationListView = new ReservationListView();
+
+        ReservationListController reservationListController = new ReservationListController(hotel, reservationListView);
+
         JFrame frame = new JFrame("Hotel");
         frame.setMinimumSize(new Dimension(1000, 500));
 
-        JPanel contentPane = new JPanel(new GridLayout(2, 2));
+        JPanel contentPane = new JPanel(new GridLayout(2, 2, 2, 2));
         contentPane.add(chambreView);
         contentPane.add(clientView);
+        contentPane.add(reservationListView);
         contentPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         frame.setContentPane(contentPane);
 
