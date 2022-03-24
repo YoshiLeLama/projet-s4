@@ -92,6 +92,8 @@ public class ChambreListView extends JPanel {
         addChambrePanel.setPreferredSize(new Dimension(1000, 60));
 
         add(addChambrePanel, BorderLayout.NORTH);
+
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     public void setupEvents(ChambreListController controller) {

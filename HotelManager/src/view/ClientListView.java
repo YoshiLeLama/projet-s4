@@ -4,6 +4,7 @@ import controller.ClientListController;
 import model.Client;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -57,6 +58,8 @@ public class ClientListView extends JPanel {
         clientsListScroll.setViewportView(clientsList);
 
         add(clientsListScroll, BorderLayout.CENTER);
+
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     public void setupEvents(ClientListController controller) {

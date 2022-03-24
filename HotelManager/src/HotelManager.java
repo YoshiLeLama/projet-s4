@@ -26,8 +26,15 @@ public class HotelManager {
         ClientListController clientListController = new ClientListController(hotel, clientView);
 
         JFrame frame = new JFrame("Hotel");
-        frame.setMinimumSize(new Dimension(500, 500));
-        frame.setContentPane(clientView);
+        frame.setMinimumSize(new Dimension(1000, 500));
+
+        JPanel contentPane = new JPanel(new GridLayout(2, 2));
+        contentPane.add(chambreView);
+        contentPane.add(clientView);
+        contentPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        frame.setContentPane(contentPane);
+
+        frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
