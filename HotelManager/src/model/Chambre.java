@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Chambre {
-    private Hotel hotel;
+    private final Hotel hotel;
 
-    private int numero;
-    private int etage;
+    private final int numero;
+    private final int etage;
     private double prix;
 
-    private ArrayList<Reservation> reservations;
-    private ArrayList<Sejour> sejours;
+    public ArrayList<Reservation> getReservations() {
+        return reservations;
+    }
+
+    private final ArrayList<Reservation> reservations;
+    private final ArrayList<Sejour> sejours;
 
     public Chambre(Hotel hotel, int numero, int etage, double prix) {
         this.hotel = hotel;

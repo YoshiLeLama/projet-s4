@@ -4,6 +4,8 @@ import model.Client;
 import model.Hotel;
 import view.ClientListView;
 
+import java.util.function.Function;
+
 public class ClientListController {
     private Hotel model;
     private ClientListView view;
@@ -11,6 +13,8 @@ public class ClientListController {
     public ClientListController(Hotel model, ClientListView view) {
         this.model = model;
         this.view = view;
+
+        model.addOnReservationUpdateCallback(unused -> view.modelUpdated(model.getClients()));
 
         view.setupEvents(this);
         view.modelUpdated(model.getClients());

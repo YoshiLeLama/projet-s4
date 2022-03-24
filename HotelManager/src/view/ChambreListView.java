@@ -28,8 +28,7 @@ public class ChambreListView extends JPanel {
     };
 
     public ChambreListView() {
-        BorderLayout contentLayout = new BorderLayout();
-        setLayout(contentLayout);
+        setLayout(new BorderLayout());
 
         JPanel bottomPanel = new JPanel(new FlowLayout());
 

@@ -11,6 +11,8 @@ public class ChambreListController {
         this.model = model;
         this.view = view;
 
+        this.model.addOnReservationUpdateCallback(unused -> view.modelUpdated(model.getChambres()));
+
         view.setupEvents(this);
         view.modelUpdated(model.getChambres());
     }
