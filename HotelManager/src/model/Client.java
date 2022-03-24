@@ -32,6 +32,10 @@ public class Client {
 
     @Override
     public String toString() {
-        return "model.Client :\n id : " + id + "\n nom : " + nom + "\n reservation : " + reservation + "\n séjour : " + sejour + "\n";
+        return id + " | nom : " + nom + " | reservation : " + (reservation == null ? "aucune" : reservation.getId());
+    }
+
+    public void setName(String newNom) {
+        this.nom = newNom;
     }
 }
