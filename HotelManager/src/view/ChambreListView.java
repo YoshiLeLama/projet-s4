@@ -5,10 +5,7 @@ import model.Chambre;
 import model.ChambreType;
 
 import javax.swing.*;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ChambreListView extends JPanel {
@@ -22,7 +19,7 @@ public class ChambreListView extends JPanel {
     private final JTextField prixTextField;
 
     private final JComboBox<ChambreType> chambreTypeCombo;
-    private static ChambreType[] chambreTypes = {
+    private static final ChambreType[] chambreTypes = {
             ChambreType.CHAMBRE_SIMPLE,
             ChambreType.CHAMBRE_DOUBLE,
             ChambreType.SUITE_SIMPLE,
@@ -114,11 +111,15 @@ public class ChambreListView extends JPanel {
                 return;
             }
 
-            controller.addChambre(
+            if (!controller.addChambre(
                     numero,
                     etage,
                     prix,
-                    chambreTypes[chambreTypeCombo.getSelectedIndex()]);
+                    chambreTypes[chambreTypeCombo.getSelectedIndex()]))
+            {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Une chambre a déjà le numéro " + numero);
+                return;
+            }
 
             numeroTextField.setText("");
             etageTextField.setText("");

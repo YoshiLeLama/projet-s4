@@ -3,12 +3,7 @@ package controller;
 import model.*;
 import view.ChambreListView;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class ChambreListController {
-    private static int id = 2;
-
     private Hotel model;
     private ChambreListView view;
 
@@ -20,7 +15,13 @@ public class ChambreListController {
         view.modelUpdated(model.getChambres());
     }
 
-    public void addChambre(int numero, int etage, double prix, ChambreType type) {
+    public boolean addChambre(int numero, int etage, double prix, ChambreType type) {
+        for (Chambre chambre : model.getChambres()) {
+            if (chambre.getNumero() == numero) {
+                return false;
+            }
+        }
+
         switch (type) {
             case CHAMBRE_SIMPLE -> model.ajouterChambre(new ChambreSimple(model, numero, etage, prix));
             case CHAMBRE_DOUBLE -> model.ajouterChambre(new ChambreDouble(model, numero, etage, prix));
@@ -29,6 +30,8 @@ public class ChambreListController {
         }
 
         view.modelUpdated(model.getChambres());
+
+        return true;
     }
 
     public void deleteChambre(int index) {
