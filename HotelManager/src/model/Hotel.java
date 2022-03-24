@@ -42,4 +42,22 @@ public class Hotel {
             }
         }
     }
+
+    public void afficherChambre(int id) {
+        for (int i = 0; i < chambres.size(); i++) {
+            if (chambres.get(i).getNumero() == id) {
+                chambres.get(i).afficher();
+                break;
+            }
+        }
+    }
+
+    public void afficher(Boolean details) {
+        System.out.println("notre hotel il a une capacité de " + chambres.size() + " chambres");
+        if(!details) return;
+        
+        for (int i = 0; i < chambres.size(); i++) {
+            chambres.get(i).afficher();
+        }
+    }
 }

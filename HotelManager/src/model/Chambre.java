@@ -3,16 +3,17 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Chambre {
+public abstract class Chambre implements Affichable {
     private int numero;
     private int etage;
     private double prix;
+    static private int id = 0;
 
     private ArrayList<Reservation> reservations;
     private ArrayList<Sejour> sejours;
 
-    public Chambre(int num, int e, double p) {
-        numero = num;
+    public Chambre(int e, double p) {
+        numero = id++;
         etage = e;
         prix = p;
         reservations = new ArrayList<>();
@@ -51,5 +52,16 @@ public abstract class Chambre {
 
     public double getPrix() {
         return prix;
+    }
+
+    public int getEtage() {
+        return etage;
+    }
+
+    public void afficher() {
+        System.out.println("");
+        System.out.println("chambre numero: " + this.getNumero());
+        System.out.println("etage: " + this.getEtage());
+        System.out.println("prix: " + this.getPrix() + "$");
     }
 }
