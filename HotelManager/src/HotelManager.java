@@ -1,9 +1,8 @@
 import controller.ChambreListController;
-import model.Chambre;
-import model.ChambreDouble;
-import model.ChambreSimple;
-import model.Hotel;
+import controller.ClientListController;
+import model.*;
 import view.ChambreListView;
+import view.ClientListView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,13 +14,20 @@ public class HotelManager {
         Hotel hotel = new Hotel();
         hotel.ajouterChambre(new ChambreSimple(hotel, 1, 1, 60));
         hotel.ajouterChambre(new ChambreDouble(hotel, 2, 1, 60));
-        ChambreListView view = new ChambreListView();
 
-        ChambreListController controller = new ChambreListController(hotel, view);
+        hotel.ajouterClient(new Client("Antoine"));
+        hotel.ajouterClient(new Client("Jean"));
+        ChambreListView chambreView = new ChambreListView();
+
+        ChambreListController chambreListController = new ChambreListController(hotel, chambreView);
+
+        ClientListView clientView = new ClientListView();
+
+        ClientListController clientListController = new ClientListController(hotel, clientView);
 
         JFrame frame = new JFrame("Hotel");
         frame.setMinimumSize(new Dimension(500, 500));
-        frame.setContentPane(view);
+        frame.setContentPane(clientView);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
