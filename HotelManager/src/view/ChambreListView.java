@@ -2,62 +2,137 @@ package view;
 
 import controller.ChambreListController;
 import model.Chambre;
+import model.ChambreType;
 
 import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 
-public class ChambreListView extends JScrollPane {
+public class ChambreListView extends JPanel {
     private final JButton addChambreButton;
-    private JPanel contentPanel;
-    private JPanel chambresListPanel;
+    private final JButton deleteChambreButton;
+    private final JList<Object> chambresList;
 
-    private ArrayList<ChambreDetailsView> detailsViewList;
+    // Elements permettant d'ajouter une chambre
+    private final JTextField numeroTextField;
+    private final JTextField etageTextField;
+    private final JTextField prixTextField;
+
+    private final JComboBox<ChambreType> chambreTypeCombo;
+    private static ChambreType[] chambreTypes = {
+            ChambreType.CHAMBRE_SIMPLE,
+            ChambreType.CHAMBRE_DOUBLE,
+            ChambreType.SUITE_SIMPLE,
+            ChambreType.SUITE_PRESIDENTIELLE
+    };
 
     public ChambreListView() {
-        verticalScrollBar.setUnitIncrement(16);
-
         BorderLayout contentLayout = new BorderLayout();
-        contentPanel = new JPanel(contentLayout);
+        setLayout(contentLayout);
 
-        chambresListPanel = new JPanel();
-        BoxLayout listLayout = new BoxLayout(chambresListPanel, BoxLayout.Y_AXIS);
-        chambresListPanel.setLayout(listLayout);
-        contentPanel.add(chambresListPanel, BorderLayout.CENTER);
+        deleteChambreButton = new JButton("Supprimer la chambre");
+        deleteChambreButton.setEnabled(false);
+        add(deleteChambreButton, BorderLayout.SOUTH);
 
-        addChambreButton = new JButton("addChambre");
-        contentPanel.add(addChambreButton, BorderLayout.NORTH);
+        chambresList = new JList<>();
+        chambresList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        chambresList.setLayoutOrientation(JList.VERTICAL);
+        chambresList.setVisibleRowCount(-1);
 
-        detailsViewList = new ArrayList<>();
+        chambresList.addListSelectionListener(e -> {
+            deleteChambreButton.setEnabled(!chambresList.isSelectionEmpty());
+        });
 
-        setViewportView(contentPanel);
+        JScrollPane chambreListScroll = new JScrollPane(chambresList);
+        chambreListScroll.getVerticalScrollBar().setUnitIncrement(16);
+        chambreListScroll.setViewportView(chambresList);
+
+        add(chambreListScroll, BorderLayout.CENTER);
+
+        JPanel addChambrePanel = new JPanel(new FlowLayout());
+
+        addChambrePanel.add(new JLabel("Numéro "));
+
+        numeroTextField = new JTextField();
+        numeroTextField.setToolTipText("Numéro de la chambre");
+        numeroTextField.setPreferredSize(new Dimension(50, 20));
+        addChambrePanel.add(numeroTextField);
+
+        addChambrePanel.add(new JLabel(" Étage "));
+
+        etageTextField = new JTextField();
+        etageTextField.setToolTipText("Numéro d'étage");
+        etageTextField.setPreferredSize(new Dimension(50, 20));
+        addChambrePanel.add(etageTextField);
+
+        addChambrePanel.add(new JLabel(" Prix "));
+
+        prixTextField = new JTextField();
+        prixTextField.setToolTipText("Prix de la nuit");
+        prixTextField.setPreferredSize(new Dimension(50, 20));
+        addChambrePanel.add(prixTextField);
+
+        chambreTypeCombo = new JComboBox<>(chambreTypes);
+        addChambrePanel.add(chambreTypeCombo);
+
+        addChambreButton = new JButton("Ajouter");
+        addChambrePanel.add(addChambreButton);
+
+        addChambrePanel.setPreferredSize(new Dimension(1000, 60));
+
+        add(addChambrePanel, BorderLayout.NORTH);
+
         setVisible(true);
     }
 
     public void setupEvents(ChambreListController controller) {
-        addChambreButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.addChambre(1, 1, 60, null);
+        addChambreButton.addActionListener(e -> {
+            int numero;
+            try {
+                numero = Math.abs(Integer.parseInt(numeroTextField.getText()));
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Le numéro de chambre est invalide");
+                return;
             }
+
+            int etage;
+            try {
+                etage = Integer.parseInt(etageTextField.getText());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Le numéro d'étage est invalide");
+                return;
+            }
+
+            double prix;
+            try {
+                prix = Math.abs(Double.parseDouble(prixTextField.getText()));
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Le prix est invalide");
+                return;
+            }
+
+            controller.addChambre(
+                    numero,
+                    etage,
+                    prix,
+                    chambreTypes[chambreTypeCombo.getSelectedIndex()]);
+
+            numeroTextField.setText("");
+            etageTextField.setText("");
+            prixTextField.setText("");
+        });
+
+        deleteChambreButton.addActionListener(e -> {
+            if (!chambresList.isSelectionEmpty())
+                controller.deleteChambre(chambresList.getSelectedIndex());
         });
     }
 
     public void modelUpdated(ArrayList<Chambre> model) {
-        chambresListPanel.removeAll();
-
-        chambresListPanel.add(addChambreButton);
-
-        for (Chambre chambre : model) {
-            System.out.println(chambre.getPrix());
-
-            chambresListPanel.add(new JLabel("Chambre no. " + chambre.getNumero() +
-                    ", étage no. " + chambre.getEtage() +
-                    ", prix " + chambre.getPrix() + "€ par nuit"));
-        }
+        chambresList.setListData(model.toArray());
 
         revalidate();
     }
