@@ -59,4 +59,9 @@ public abstract class Chambre {
     public double getPrix() {
         return prix;
     }
+
+    @Override
+    public String toString() {
+        return "no. " + numero + " | étage no. " + etage + " | prix " + prix + "€";
+    }
 }
