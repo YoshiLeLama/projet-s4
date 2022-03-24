@@ -9,6 +9,7 @@ public class Hotel {
 
     public Hotel() {
         chambres = new ArrayList<>();
+        clients = new ArrayList<>();
     }
 
     public ArrayList<Chambre> getChambres() {
@@ -60,5 +61,9 @@ public class Hotel {
                 break;
             }
         }
+    }
+
+    public ArrayList<Client> getClients() {
+        return clients;
     }
 }
