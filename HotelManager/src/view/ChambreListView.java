@@ -26,6 +26,9 @@ public class ChambreListView extends JPanel {
             ChambreType.SUITE_SIMPLE,
             ChambreType.SUITE_PRESIDENTIELLE
     };
+    private final JTextField beginDateField;
+    private final JTextField endDateField;
+    private final JButton filterButtonField;
 
     public ChambreListView() {
         setLayout(new BorderLayout());
@@ -92,6 +95,26 @@ public class ChambreListView extends JPanel {
 
         add(addChambrePanel, BorderLayout.NORTH);
 
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+
+        leftPanel.add(new JLabel("Date de début"));
+
+        beginDateField = new JTextField();
+        beginDateField.setMaximumSize(new Dimension(200, 20));
+        leftPanel.add(beginDateField);
+
+        leftPanel.add(new JLabel("Date de fin"));
+
+        endDateField = new JTextField();
+        endDateField.setMaximumSize(new Dimension(200, 20));
+        leftPanel.add(endDateField);
+
+        filterButtonField = new JButton("Filtrer");
+        leftPanel.add(filterButtonField);
+
+        add(leftPanel, BorderLayout.WEST);
+
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
@@ -156,6 +179,10 @@ public class ChambreListView extends JPanel {
         deleteChambreButton.addActionListener(e -> {
             if (!chambresList.isSelectionEmpty())
                 controller.deleteChambre(chambresList.getSelectedIndex());
+        });
+
+        filterButtonField.addActionListener(e -> {
+            // TODO Ajout d'un système de filtre en fonction de dates pour récupérer les chambres disponibles
         });
     }
 
