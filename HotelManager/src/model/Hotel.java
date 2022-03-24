@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Hotel {
     private ArrayList<Chambre> chambres;
+    private ArrayList<Client> clients;
 
     public Hotel() {
         chambres = new ArrayList<>();
@@ -38,10 +39,24 @@ public class Hotel {
         }
     }
 
-    public void supprimerChambre(int id) {
+    public void supprimerChambre(int numero) {
         for (int i = 0; i < chambres.size(); i++) {
-            if (chambres.get(i).getNumero() == id) {
+            if (chambres.get(i).getNumero() == numero) {
                 chambres.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void ajouterClient(Client client) {
+        if (client != null)
+            clients.add(client);
+    }
+
+    public void supprimerClient(int id) {
+        for (int i = 0; i < clients.size(); i++) {
+            if (clients.get(i).getId() == id) {
+                clients.remove(i);
                 break;
             }
         }
