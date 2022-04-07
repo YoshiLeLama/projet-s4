@@ -37,7 +37,7 @@ public class Client {
     public String toString() {
         StringBuilder value = new StringBuilder(id + " | nom : " + nom + " | reservations : " + (reservations.isEmpty() ? "aucune" : ""));
         for (Reservation reservation : reservations) {
-            value.append(" ").append(reservation.getId());
+            value.append(" ").append(reservation.getId()).append(",");
         }
 
         return value.toString();
