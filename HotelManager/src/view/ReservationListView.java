@@ -70,7 +70,7 @@ public class ReservationListView extends JPanel {
         bottomPanel.add(deleteReservationButton);
 
         confirmSejourButton = new JButton("Confirmer le séjour");
-        confirmSejourButton.setEnabled(false);
+        //confirmSejourButton.setEnabled(false);
         bottomPanel.add(confirmSejourButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
@@ -169,6 +169,10 @@ public class ReservationListView extends JPanel {
             if (reservationsList.isSelectionEmpty())
                 return;
             controller.deleteReservation(reservationsList.getSelectedIndex());
+        });
+
+        confirmSejourButton.addActionListener(e -> {
+            new SejourView((JFrame) SwingUtilities.getWindowAncestor(this), null);
         });
     }
 
