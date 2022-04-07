@@ -6,9 +6,13 @@ import model.ChambreType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ChambreListView extends JPanel {
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
     private final JButton addChambreButton;
     private final JButton modifyChambreButton;
     private final JButton deleteChambreButton;
@@ -183,6 +187,24 @@ public class ChambreListView extends JPanel {
 
         filterButtonField.addActionListener(e -> {
             // TODO Ajout d'un système de filtre en fonction de dates pour récupérer les chambres disponibles
+            Date beginDate, endDate;
+            try {
+                beginDate = dateFormat.parse(beginDateField.getText());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "La date de début de la réservation est invalide");
+                return;
+            }
+
+            try {
+                endDate = dateFormat.parse(endDateField.getText());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "La date de fin de la réservation est mal renseignée");
+                return;
+            }
+
+            controller.availableChambres(beginDate, endDate);
+            beginDateField.setText("");
+            endDateField.setText("");
         });
     }
 

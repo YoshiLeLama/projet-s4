@@ -21,6 +21,16 @@ public class Hotel {
         return chambres;
     }
 
+    public ArrayList<Chambre> availableChambres(Date debut, Date fin) {
+        ArrayList<Chambre> chambresDispo = new ArrayList<>();
+        for (Chambre chambre : chambres) { 		      
+            if (chambre.disponible(debut, fin)) {
+                chambresDispo.add(chambre);
+            } 		
+        }
+        return chambresDispo;
+    }
+
     public void ajouterChambre(Chambre chambre) {
         if (chambre != null)
             chambres.add(chambre);

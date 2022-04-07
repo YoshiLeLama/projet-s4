@@ -31,7 +31,7 @@ public abstract class Chambre {
             throw new IllegalArgumentException("Les arguments de model.Chambre.disponible ne peuvent pas être nuls");
 
         for (Reservation r : reservations) {
-            if ((fin.after(r.getDebut()) && fin.before(r.getFin())) || (debut.after(r.getDebut()) && debut.before(r.getFin())))
+            if ((debut.equals(r.getFin()) || debut.before(r.getFin())) && (fin.equals(r.getDebut()) || fin.after(r.getDebut())))
                 return false;
         }
 

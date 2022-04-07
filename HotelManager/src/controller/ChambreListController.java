@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import model.*;
 import view.ChambreListView;
 
@@ -45,5 +48,13 @@ public class ChambreListController {
         model.getChambres().remove(index);
 
         view.modelUpdated(model.getChambres());
+    }
+
+    public ArrayList<Chambre> availableChambres(Date debut, Date fin) {
+        ArrayList<Chambre> chambresDispo = model.availableChambres(debut, fin);
+        System.out.println("chambres dispo: " + chambresDispo.size());
+        view.modelUpdated(chambresDispo);
+        //return chambresDispo;
+        return null;
     }
 }
