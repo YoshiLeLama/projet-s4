@@ -15,7 +15,8 @@ public class ReservationListView extends JPanel {
     private final JButton addReservationButton;
     private final JButton modifyReservationButton;
     private final JButton deleteReservationButton;
-    private JList<Object> reservationsList;
+    private final JButton confirmSejourButton;
+    private final JList<Object> reservationsList;
 
     private final JTextField reservationBeginDateField;
     private final JTextField reservationEndDateField;
@@ -68,6 +69,10 @@ public class ReservationListView extends JPanel {
         deleteReservationButton.setEnabled(false);
         bottomPanel.add(deleteReservationButton);
 
+        confirmSejourButton = new JButton("Confirmer le séjour");
+        confirmSejourButton.setEnabled(false);
+        bottomPanel.add(confirmSejourButton);
+
         add(bottomPanel, BorderLayout.SOUTH);
 
         reservationsList = new JList<>();
@@ -79,6 +84,7 @@ public class ReservationListView extends JPanel {
             boolean filled = !reservationsList.isSelectionEmpty();
             modifyReservationButton.setEnabled(filled);
             deleteReservationButton.setEnabled(filled);
+            confirmSejourButton.setEnabled(filled);
         });
 
         JScrollPane reservationsListScroll = new JScrollPane(reservationsList);
