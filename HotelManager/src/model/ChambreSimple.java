@@ -2,7 +2,12 @@ package model;
 
 public class ChambreSimple extends Chambre {
 
-    public ChambreSimple(int n, int e, double p) {
-        super(n, e, p);
+    public ChambreSimple(Hotel hotel, int numero, int etage, double prix) {
+        super(hotel, numero, etage, prix);
+    }
+
+    @Override
+    public String toString() {
+        return "Chambre simple | " + super.toString();
     }
 }

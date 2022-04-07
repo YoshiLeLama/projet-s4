@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Client {
@@ -8,7 +9,7 @@ public class Client {
     private int id;
     private String nom;
 
-    private Reservation reservation;
+    private ArrayList<Reservation> reservations;
     private Sejour sejour;
 
     public Client(String nom) {
@@ -16,13 +17,15 @@ public class Client {
             throw new IllegalArgumentException("Le nom du client ne peut pas être nuls");
         id = idCnt++;
         this.nom = nom;
+
+        reservations = new ArrayList<>();
     }
 
     public void ajouterReservation(Date debut, Date fin, Chambre chambre) {
-        reservation = new Reservation(debut, fin, this, chambre);
+        reservations.add(new Reservation(debut, fin, this, chambre));
     }
 
-    public void honorerSejour(Date debut, Date fin) {
+    public void honorerSejour(Date debut, Date fin, Reservation reservation) {
         sejour = new Sejour(debut, fin, this, reservation.getChambre());
     }
 
@@ -32,6 +35,19 @@ public class Client {
 
     @Override
     public String toString() {
-        return "model.Client :\n id : " + id + "\n nom : " + nom + "\n reservation : " + reservation + "\n séjour : " + sejour + "\n";
+        StringBuilder value = new StringBuilder(id + " | nom : " + nom + " | reservations : " + (reservations.isEmpty() ? "aucune" : ""));
+        for (Reservation reservation : reservations) {
+            value.append(" ").append(reservation.getId()).append(",");
+        }
+
+        return value.toString();
+    }
+
+    public void setName(String newNom) {
+        this.nom = newNom;
+    }
+
+    public ArrayList<Reservation> getReservations() {
+        return reservations;
     }
 }
