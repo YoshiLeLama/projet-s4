@@ -114,6 +114,11 @@ public class ReservationListView extends JPanel {
                 return;
             }
 
+            if (!endDate.after(beginDate)) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "La date de fin doit être après la date de début");
+                return;
+            }
+
             if (clientIdField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "L'identifiant du client ne peut pas être nul");
                 return;
@@ -136,12 +141,17 @@ public class ReservationListView extends JPanel {
             try {
                 numeroChambre = Math.abs(Integer.parseInt(numeroChambreField.getText()));
             } catch (Exception exception) {
-                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "L'identifiant du client est invalide");
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this),
+                        "L'identifiant du client est invalide");
                 return;
             }
 
-            if (!controller.addReservation(clientId, beginDate, endDate, numeroChambre)) {
-                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "L'ajout de la réservation a échoué");
+            try {
+                controller.addReservation(clientId, beginDate, endDate, numeroChambre);
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), exception.getMessage(),
+                        "La réservation a échoué",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

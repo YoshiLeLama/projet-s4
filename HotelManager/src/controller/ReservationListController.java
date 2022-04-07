@@ -25,11 +25,15 @@ public class ReservationListController {
         view.modelUpdated(reservations);
     }
 
-    public boolean addReservation(int clientId, Date debut, Date fin, int numeroChambre) {
+    public void addReservation(int clientId, Date debut, Date fin, int numeroChambre) throws Exception {
         for (Client client : model.getClients()) {
             if (client.getId() == clientId) {
                 for (Chambre chambre : model.getChambres()) {
                     if (chambre.getNumero() == numeroChambre) {
+                        if (!chambre.disponible(debut, fin)) {
+                            throw new Exception("La chambre n'est pas disponible");
+                        }
+
                         client.ajouterReservation(debut, fin, chambre);
 
                         reservations = model.getReservations();
@@ -38,13 +42,13 @@ public class ReservationListController {
 
                         model.onReservationUpdate();
 
-                        return true;
+                        return;
                     }
                 }
+                throw new Exception("Le numéro de chambre n'existe pas");
             }
         }
-
-        return false;
+        throw new Exception("Le numéro de client n'existe pas");
     }
 
     public void deleteReservation(int reservationIndex) {
