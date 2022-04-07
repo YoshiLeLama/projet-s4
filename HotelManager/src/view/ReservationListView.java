@@ -61,11 +61,11 @@ public class ReservationListView extends JPanel {
 
         JPanel bottomPanel = new JPanel(new FlowLayout());
 
-        modifyReservationButton = new JButton("Modifier le client");
+        modifyReservationButton = new JButton("Modifier la réservation");
         modifyReservationButton.setEnabled(false);
         bottomPanel.add(modifyReservationButton);
 
-        deleteReservationButton = new JButton("Supprimer le client");
+        deleteReservationButton = new JButton("Supprimer la réservation");
         deleteReservationButton.setEnabled(false);
         bottomPanel.add(deleteReservationButton);
 
@@ -159,6 +159,10 @@ public class ReservationListView extends JPanel {
             reservationEndDateField.setText("");
             clientIdField.setText("");
             numeroChambreField.setText("");
+        });
+
+        modifyReservationButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "TODO");
         });
 
         deleteReservationButton.addActionListener(e -> {
