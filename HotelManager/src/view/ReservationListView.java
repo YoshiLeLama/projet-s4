@@ -61,16 +61,16 @@ public class ReservationListView extends JPanel {
 
         JPanel bottomPanel = new JPanel(new FlowLayout());
 
-        modifyReservationButton = new JButton("Modifier le client");
+        modifyReservationButton = new JButton("Modifier la réservation");
         modifyReservationButton.setEnabled(false);
         bottomPanel.add(modifyReservationButton);
 
-        deleteReservationButton = new JButton("Supprimer le client");
+        deleteReservationButton = new JButton("Supprimer la réservation");
         deleteReservationButton.setEnabled(false);
         bottomPanel.add(deleteReservationButton);
 
         confirmSejourButton = new JButton("Confirmer le séjour");
-        confirmSejourButton.setEnabled(false);
+        //confirmSejourButton.setEnabled(false);
         bottomPanel.add(confirmSejourButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
@@ -114,6 +114,11 @@ public class ReservationListView extends JPanel {
                 return;
             }
 
+            if (!endDate.after(beginDate)) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "La date de fin doit être après la date de début");
+                return;
+            }
+
             if (clientIdField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "L'identifiant du client ne peut pas être nul");
                 return;
@@ -136,12 +141,17 @@ public class ReservationListView extends JPanel {
             try {
                 numeroChambre = Math.abs(Integer.parseInt(numeroChambreField.getText()));
             } catch (Exception exception) {
-                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "L'identifiant du client est invalide");
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this),
+                        "L'identifiant du client est invalide");
                 return;
             }
 
-            if (!controller.addReservation(clientId, beginDate, endDate, numeroChambre)) {
-                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "L'ajout de la réservation a échoué");
+            try {
+                controller.addReservation(clientId, beginDate, endDate, numeroChambre);
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), exception.getMessage(),
+                        "La réservation a échoué",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -151,10 +161,18 @@ public class ReservationListView extends JPanel {
             numeroChambreField.setText("");
         });
 
+        modifyReservationButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "TODO");
+        });
+
         deleteReservationButton.addActionListener(e -> {
             if (reservationsList.isSelectionEmpty())
                 return;
             controller.deleteReservation(reservationsList.getSelectedIndex());
+        });
+
+        confirmSejourButton.addActionListener(e -> {
+            new SejourView((JFrame) SwingUtilities.getWindowAncestor(this), null);
         });
     }
 
