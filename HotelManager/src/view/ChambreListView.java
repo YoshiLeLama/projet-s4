@@ -175,8 +175,9 @@ public class ChambreListView extends JPanel {
                 return;
             }
 
-            controller.modifyChambre(chambresList.getSelectedIndex(), prix);
-
+            controller.modifyChambre(chambresList.getSelectedValue().toString(), prix);
+            beginDateField.setText("");
+            endDateField.setText("");
             chambresList.requestFocus();
         });
 
@@ -188,6 +189,11 @@ public class ChambreListView extends JPanel {
         filterButtonField.addActionListener(e -> {
             // TODO Ajout d'un système de filtre en fonction de dates pour récupérer les chambres disponibles
             Date beginDate, endDate;
+            if(beginDateField.getText().isEmpty() && endDateField.getText().isEmpty()) {
+                controller.availableChambres(null, null);
+                return;
+            }
+
             try {
                 beginDate = dateFormat.parse(beginDateField.getText());
             } catch (Exception exception) {
@@ -203,8 +209,6 @@ public class ChambreListView extends JPanel {
             }
 
             controller.availableChambres(beginDate, endDate);
-            beginDateField.setText("");
-            endDateField.setText("");
         });
     }
 

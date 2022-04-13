@@ -21,8 +21,23 @@ public class Hotel {
         return chambres;
     }
 
+    public void modifyChambre(String value, double prix) {
+        for(Chambre chambre: chambres) {
+            if(value.equals(chambre.toString())) {
+                chambre.setPrix(prix);
+                return;
+            }
+        }
+
+    }
+
     public ArrayList<Chambre> availableChambres(Date debut, Date fin) {
         ArrayList<Chambre> chambresDispo = new ArrayList<>();
+
+        if(debut == null && fin == null) {
+            return getChambres();
+        }
+
         for (Chambre chambre : chambres) { 		      
             if (chambre.disponible(debut, fin)) {
                 chambresDispo.add(chambre);

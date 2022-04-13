@@ -39,8 +39,9 @@ public class ChambreListController {
         return true;
     }
 
-    public void modifyChambre(int index, double newPrix) {
-        model.getChambres().get(index).setPrix(newPrix);
+    public void modifyChambre(String value, double prix) {
+        // model.getChambres().get(index).setPrix(newPrix);
+        model.modifyChambre(value, prix);
         view.modelUpdated(model.getChambres());
     }
 
@@ -52,7 +53,6 @@ public class ChambreListController {
 
     public ArrayList<Chambre> availableChambres(Date debut, Date fin) {
         ArrayList<Chambre> chambresDispo = model.availableChambres(debut, fin);
-        System.out.println("chambres dispo: " + chambresDispo.size());
         view.modelUpdated(chambresDispo);
         //return chambresDispo;
         return null;
