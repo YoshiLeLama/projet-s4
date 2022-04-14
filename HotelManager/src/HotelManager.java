@@ -32,7 +32,7 @@ public class HotelManager {
         ReservationListController reservationListController = new ReservationListController(hotel, reservationListView);
 
         JFrame frame = new JFrame("Hotel");
-        frame.setMinimumSize(new Dimension(1000, 500));
+        frame.setMinimumSize(new Dimension(1100, 500));
 
         JPanel contentPane = new JPanel(new GridLayout(2, 2, 2, 2));
         contentPane.add(chambreView);
@@ -41,7 +41,6 @@ public class HotelManager {
         contentPane.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         frame.setContentPane(contentPane);
 
-        frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
