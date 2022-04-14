@@ -2,6 +2,7 @@ package view;
 
 import controller.ReservationListController;
 import model.Reservation;
+import model.Sejour;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +71,7 @@ public class ReservationListView extends JPanel {
         bottomPanel.add(deleteReservationButton);
 
         confirmSejourButton = new JButton("Confirmer le séjour");
-        //confirmSejourButton.setEnabled(false);
+        confirmSejourButton.setEnabled(false);
         bottomPanel.add(confirmSejourButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
@@ -172,7 +173,27 @@ public class ReservationListView extends JPanel {
         });
 
         confirmSejourButton.addActionListener(e -> {
-            new SejourView((JFrame) SwingUtilities.getWindowAncestor(this), null);
+            if (reservationsList.isSelectionEmpty())
+                return;
+
+            int index = reservationsList.getSelectedIndex();
+
+            Reservation reservation = controller.getReservation(index);
+
+            if (reservation.isHonored()) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Cette réservation est déjà terminée et facturée.");
+                return;
+            }
+
+            SejourView sejourView = new SejourView((JFrame) SwingUtilities.getWindowAncestor(this), reservation);
+            Sejour sejour = sejourView.showSejour(true);
+
+            if (sejour == null)
+                return;
+
+            controller.honorReservation(index);
+
+            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Cout total " + sejour.facturer() + "€");
         });
     }
 

@@ -14,6 +14,8 @@ public class Reservation {
     private Client client;
     private Chambre chambre;
 
+    private boolean honored;
+
     public Reservation(Date debut, Date fin, Client client, Chambre chambre) {
         if (debut == null || fin == null || client == null || chambre == null)
             throw new IllegalArgumentException("les arguments du constructeur de model.Reservation ne peuvent pas être nuls");
@@ -42,11 +44,18 @@ public class Reservation {
         return id;
     }
 
+    public boolean isHonored() {
+        return honored;
+    }
+
+    public void setHonored(boolean honored) {this.honored = honored;}
+
     @Override
     public String toString() {
         return id + " | chambre : " + chambre.getNumero() +
                 " | client : " + client.getId() +
                 " | dates : " + ReservationListView.dateFormat.format(debut) +
-                " -> " + ReservationListView.dateFormat.format(fin);
+                " -> " + ReservationListView.dateFormat.format(fin) +
+                (honored ? " - TERMINÉE" : " - EN COURS");
     }
 }

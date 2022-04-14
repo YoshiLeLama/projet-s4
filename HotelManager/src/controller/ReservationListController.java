@@ -70,4 +70,19 @@ public class ReservationListController {
 
         model.onReservationUpdate();
     }
+
+    public Reservation getReservation(int index) {
+        if (index < 0 || index >= reservations.size()) return null;
+        return reservations.get(index);
+    }
+
+    public void honorReservation(int index) {
+        if (index < 0 || index >= reservations.size()) return;
+
+        reservations.get(index).setHonored(true);
+
+        view.modelUpdated(reservations);
+
+        model.onReservationUpdate();
+    }
 }
