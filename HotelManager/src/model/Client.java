@@ -26,7 +26,7 @@ public class Client {
     }
 
     public void honorerSejour(Date debut, Date fin, Reservation reservation) {
-        sejour = new Sejour(debut, fin, this, reservation.getChambre());
+        sejour = new Sejour(debut, fin, reservation.getChambre());
     }
 
     public int getId() {
@@ -35,8 +35,14 @@ public class Client {
 
     @Override
     public String toString() {
-        StringBuilder value = new StringBuilder(id + " | nom : " + nom + " | reservations : " + (reservations.isEmpty() ? "aucune" : ""));
+        ArrayList<Reservation> currentReservations = new ArrayList<>();
         for (Reservation reservation : reservations) {
+            if (!reservation.isHonored())
+                currentReservations.add(reservation);
+        }
+
+        StringBuilder value = new StringBuilder(id + " | nom : " + nom + " | reservations en cours : " + (currentReservations.isEmpty() ? "aucune" : ""));
+        for (Reservation reservation : currentReservations) {
             value.append(" ").append(reservation.getId()).append(",");
         }
 
