@@ -93,7 +93,11 @@ public class ClientListView extends JPanel {
         deleteClientButton.addActionListener(e -> {
             if (clientsList.isSelectionEmpty()) return;
 
-            controller.deleteClient(clientsList.getSelectedIndex());
+            try {
+                controller.deleteClient(clientsList.getSelectedIndex());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), exception.getMessage());
+            }
         });
     }
 

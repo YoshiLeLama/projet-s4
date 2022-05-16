@@ -7,8 +7,8 @@ import view.ClientListView;
 import java.util.function.Function;
 
 public class ClientListController {
-    private Hotel model;
-    private ClientListView view;
+    private final Hotel model;
+    private final ClientListView view;
 
     public ClientListController(Hotel model, ClientListView view) {
         this.model = model;
@@ -36,7 +36,13 @@ public class ClientListController {
     }
 
     public void deleteClient(int selectedIndex) {
-        model.getClients().remove(selectedIndex);
+        Client client = model.getClients().get(selectedIndex);
+
+        if (!client.getReservations().isEmpty()) {
+            throw new RuntimeException("Il est impossible de supprimer un client qui a des réservations.");
+        }
+
+        model.getClients().remove(client);
 
         view.modelUpdated(model.getClients());
     }
