@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class HotelManager {
 
     public static void main(String[] args) {
+        // Données de démonstration
         Hotel hotel = new Hotel();
         hotel.ajouterChambre(new ChambreSimple(hotel, 1, 1, 60));
         hotel.ajouterChambre(new ChambreDouble(hotel, 2, 1, 60));
-
         hotel.ajouterClient(new Client("Antoine"));
         hotel.ajouterClient(new Client("Jean"));
         ChambreListView chambreView = new ChambreListView();
